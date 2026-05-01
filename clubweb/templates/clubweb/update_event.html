@@ -1,0 +1,21 @@
+{% extends 'clubweb/base.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    <h1> Event</h1>
+    <form  action="{% url 'clubweb:update_event' event.id %}" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <br>
+        <button type="submit" class="btn btn-primary" value="update">Update Event</button>
+    </form>
+
+
+{% else %}
+    <div class="alert alert-warning" role="alert">
+        Vous devez être connecté pour modifier un événement.
+        <a class="nav-link" href="{% url 'authen:login' %}">Login Here</a>
+
+    </div>
+{% endif %}
+{% endblock %}

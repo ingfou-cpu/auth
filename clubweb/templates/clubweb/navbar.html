@@ -1,0 +1,64 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'clubweb:home' %}">IngFou Project</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'clubweb:home' '2023' 'april' %}">Calendar</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Venues
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'clubweb:venues' %}">Venues</a></li>
+            <li><a class="dropdown-item" href="{% url 'clubweb:add_venue' %}">Add Venue</a></li>
+          </ul>
+        </li>  
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Events
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'clubweb:event_list' %}">Events</a></li>
+            <li><a class="dropdown-item" href="{% url 'clubweb:add_event' %}">Add Events</a></li>
+          </ul> 
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Downloads 
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'clubweb:venues_text_file' %}">Download Venues List</a></li>
+            <li><a class="dropdown-item" href="{% url 'clubweb:venues_csv_file' %}">Download Venues List (CSV)</a></li>
+            <li><a class="dropdown-item" href="{% url 'clubweb:venues_pdf_file' %}">Download Venues List (PDF)</a></li>
+          </ul>
+        </li>
+
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'authen:logout' %}">Logout</a>
+        </li>
+        {% else %}    
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'authen:login' %}">Login</a>
+        </li>  
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'authen:register' %}">Register</a>
+        </li>
+        {% endif %}      
+
+      </ul>
+      <form class="d-flex" method="POST" action="{% url 'clubweb:search_venues' %}">
+        {% csrf_token %}
+        <input class="form-control me-2" type="search" name="search" placeholder="Chercher un lieu" aria-label="Search"/>
+        <button class="btn btn-outline-secondary" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>

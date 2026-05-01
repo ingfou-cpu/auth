@@ -1,0 +1,27 @@
+{% extends 'clubweb/base.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+
+	<h1>Ajouter un Evenement</h1>
+    <br></br>
+    {% if submitted %}
+        <div class="alert alert-success" role="alert">
+            Evenement ajouté avec succès!
+        </div>
+        {% else %}
+            <form method="POST" class="mb-4">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Ajouter l'Evenement</button>
+            </form>
+        {% endif %}
+
+{% else %}
+    <div class="alert alert-warning" role="alert">
+        Vous devez être connecté pour ajouter un événement.
+        <a class="nav-link" href="{% url 'authen:login' %}">Login Here</a>
+
+    </div>
+{% endif %}
+{% endblock %}
